@@ -27,7 +27,7 @@ filetype indent on
 map <F4> :NERDTreeToggle<cr>
 "map <C-o> :TlistToggle<cr>
 vmap <C-c> "+y
-map <A-v> "+p
+map <C-p> "+p
 map <C-s> :w<cr>
 command! -nargs=1 Silent
 \ | execute ':silent !'.<q-args>
@@ -47,7 +47,7 @@ let g:miniBufExplModSelTarget = 1
 "--------end--------
 
 
-
+"
 "{{{Auto Commands
 
 " Automatically cd into the directory that the file is in
@@ -95,8 +95,7 @@ set showcmd
 " Folding Stuffs
 "set foldmethod=marker
 set foldmethod=syntax
-
-
+"set foldnestmax=4
 " Needed for Syntax Highlighting and stuff
 filetype on
 filetype plugin on
@@ -145,7 +144,7 @@ set smartcase
 " This is totally awesome - remap jj to escape in insert mode.  You'll never type jj anyway, so it's great!
 inoremap jj <Esc>
 
-nnoremap JJJJ <Nop>
+"nnoremap JJJJ <Nop>
 
 " Incremental searching is sexy
 set incsearch
@@ -313,6 +312,7 @@ map n nzz
 " Testing
 set completeopt=longest,menuone,preview
 
+
 inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
 inoremap <expr> <c-n> pumvisible() ? "\<lt>c-n>" : "\<lt>c-n>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>"
 inoremap <expr> <m-;> pumvisible() ? "\<lt>c-n>" : "\<lt>c-x>\<lt>c-o>\<lt>c-n>\<lt>c-p>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>"
@@ -346,6 +346,7 @@ syntax on
 
 
 
+""{{{ iyixiang custom
 "{{{ python
 map <F7> :call RunPython()<CR>
 au  BufNewFile *.py call PythonHead()
@@ -407,7 +408,6 @@ endfun
 
 "}}}
 
-"{{{ iyixiang custom
 "vimrc ref : http://blog.csdn.net/wcc526/article/details/12111407
 syntax enable
 set background=dark
@@ -416,7 +416,17 @@ set textwidth=80
 set lines=40
 set shiftwidth=4
 set tabstop=4
-
+"" completeopt
+"set completeopt=longest,menuone
+""set completeopt=longest,preview
+"" open omni completion menu closing previous if open and opening new menu without changing the text
+"inoremap <expr> <C-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
+"            \ '<C-x><C-o><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
+"" open user completion menu closing previous if open and opening new menu without changing the text
+"inoremap <expr> <S-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
+"            \ '<C-x><C-u><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
+"
+map <C-r> ,c<space>
 vnoremap <silent> <C-F1> :<C-U>let old_reg=@"<CR>gvy:silent!!cmd /cstart <C-R><C-R>"<CR><CR>:let @"=old_reg<CR>
 "colorscheme molokai
 "let g:molokai_original = 1
