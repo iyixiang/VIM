@@ -15,13 +15,9 @@ set autoindent
 set smartindent
 set wrap
 
-set noerrorbells
-set novisualbell
+"set noerrorbells
+"set novisualbell
 
-syntax on
-
-filetype plugin on
-filetype indent on
 
 "map <C-F3> :NERDTree<cr>
 "map <C-o> :TlistToggle<cr>
@@ -32,12 +28,11 @@ command! -nargs=1 Silent
 
 let Tlist_Ctags_Cmd='ctags.exe'
 let Tlist_Show_One_File = 1
-
 let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
+"let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
-
+let g:miniBufExplorerMoreThanOne = 0
 "inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i
 "nnoremap <C-P> :call PhpDocSingle()<CR>
 "vnoremap <C-P> :call PhpDocRange()<CR>
@@ -84,20 +79,21 @@ augroup END
 "{{{Misc Settings
 
 " Necesary  for lots of cool vim things
-set nocompatible
+"set nocompatible
 
 " This shows what you are typing as a command.  I love this!
-set showcmd
+"set showcmd
 
 " Folding Stuffs
 "set foldmethod=marker
 set foldmethod=syntax
 "set foldnestmax=4
 " Needed for Syntax Highlighting and stuff
-filetype on
-filetype plugin on
-syntax enable
-set grepprg=grep\ -nH\ $*
+
+"filetype on
+"filetype plugin on
+"syntax enable
+"set grepprg=grep\ -nH\ $*
 
 " Who doesn't like autoindent?
 set autoindent
@@ -107,14 +103,14 @@ set expandtab
 set smarttab
 
 " Who wants an 8 character tab?  Not me!
-set shiftwidth=3
-set softtabstop=3
+"set shiftwidth=3
+"set softtabstop=3
 
 " Use english for spellchecking, but don't spellcheck by default
-if version >= 700
-   set spl=en spell
-   set nospell
-endif
+"if version >= 700
+   "set spl=en spell
+   "set nospell
+"endif
 
 " Real men use gcc
 "compiler gcc
@@ -127,7 +123,7 @@ set wildmode=list:longest,full
 set mouse=a
 
 " Got backspace?
-set backspace=2
+"set backspace=2
 
 " Line Numbers PWN!
 set number
@@ -150,10 +146,10 @@ set incsearch
 set hlsearch
 
 " Since I use linux, I want this
-let g:clipbrdDefaultReg = '+'
+"let g:clipbrdDefaultReg = '+'
 
 " When I close a tab, remove the buffer
-set nohidden
+"set nohidden
 
 " Set off the other paren
 highlight MatchParen ctermbg=4
@@ -173,8 +169,8 @@ else
 endif
 
 "Status line gnarliness
-set laststatus=2
-set statusline=%F%m%r%h%w\ (%{&ff}){%Y}\ [%l,%v][%p%%]
+"set laststatus=2
+"set statusline=%F%m%r%h%w\ (%{&ff}){%Y}\ [%l,%v][%p%%]
 
 " }}}
 
@@ -260,19 +256,19 @@ nnoremap <silent> <Leader>todo :execute TodoListMode()<CR>
 nnoremap <silent> <F3> :Tlist<CR>
 
 " Next Tab
-nnoremap <silent> <C-Right> :tabnext<CR>
+"nnoremap <silent> <C-Right> :tabnext<CR>
 
 " Previous Tab
-nnoremap <silent> <C-Left> :tabprevious<CR>
+"nnoremap <silent> <C-Left> :tabprevious<CR>
 
 " New Tab
-nnoremap <silent> <C-t> :tabnew<CR>
+"nnoremap <silent> <C-t> :tabnew<CR>
 
 " Rotate Color Scheme <F8>
-nnoremap <silent> <F8> :execute RotateColorTheme()<CR>
+"nnoremap <silent> <F8> :execute RotateColorTheme()<CR>
 
 " DOS is for fools.
-nnoremap <silent> <F9> :%s/$//g<CR>:%s// /g<CR>
+"nnoremap <silent> <F9> :%s/$//g<CR>:%s// /g<CR>
 
 " Paste Mode!  Dang! <F10>
 nnoremap <silent> <F10> :call Paste_on_off()<CR>
@@ -285,18 +281,19 @@ nnoremap <silent> <Leader>ev :tabnew<CR>:e ~/.vimrc<CR>
 nnoremap <silent> <Leader>gv :tabnew<CR>:e ~/.gvimrc<CR>
 
 " Up and down are more logical with g..
-nnoremap <silent> k gk
-nnoremap <silent> j gj
-inoremap <silent> <Up> <Esc>gka
-inoremap <silent> <Down> <Esc>gja
+"nnoremap <silent> k gk
+"nnoremap <silent> j gj
+"inoremap <silent> <Up> <Esc>gka
+"inoremap <silent> <Down> <Esc>gja
 
 " Good call Benjie (r for i)
-nnoremap <silent> <Home> i <Esc>r
-nnoremap <silent> <End> a <Esc>r
+"nnoremap <silent> <Home> i <Esc>r
+"nnoremap <silent> <End> a <Esc>r
 
 " Create Blank Newlines and stay in Normal mode
-nnoremap <silent> zj o<Esc>
-nnoremap <silent> zk O<Esc>
+"nnoremap <silent> zj o<Esc>
+"nnoremap <silent> zk O<Esc>
+
 
 " Space will toggle folds!
 nnoremap <space> za
@@ -304,8 +301,8 @@ nnoremap <S-space> zA
 
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
-map N Nzz
-map n nzz
+"map N Nzz
+"map n nzz
 
 " Testing
 set completeopt=longest,menuone,preview
@@ -338,8 +335,6 @@ let g:rct_completion_use_fri = 1
 "let g:Tex_DefaultTargetFormat = "pdf"
 let g:Tex_ViewRule_pdf = "kpdf"
 
-filetype plugin indent on
-syntax on
 
 
 
@@ -468,7 +463,6 @@ vnoremap <silent> # :<C-U>
 "}}}
 
 "{{{vimrc ref : http://blog.csdn.net/wcc526/article/details/12111407
-syntax enable
 colorscheme desert
 set background=light
 set background=dark
@@ -477,11 +471,18 @@ set textwidth=80
 set lines=40
 set shiftwidth=4
 set tabstop=4
+set laststatus=0
+set modifiable
 map <F4> :NERDTreeToggle<cr>
-vmap <C-c> "+y
+vmap <C-c> "+y<cr>,c<space>
 map <C-p> "+p
-"map <C-q> :q<cr>
+map <C-q> :wq<cr>:syntax on<cr>
 map <C-s> :w<cr>
 map <C-x> ,c<space>
 map <F7> :call RunPython()<CR>
+"map <C-w-C-w> :<C-w>
 "}}}
+"syntax enable
+syntax on
+filetype plugin on
+filetype indent on
