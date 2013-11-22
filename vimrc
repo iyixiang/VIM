@@ -24,11 +24,8 @@ filetype plugin on
 filetype indent on
 
 "map <C-F3> :NERDTree<cr>
-map <F4> :NERDTreeToggle<cr>
 "map <C-o> :TlistToggle<cr>
-vmap <C-c> "+y
-map <C-p> "+p
-map <C-s> :w<cr>
+"when runing ! , cmd not pop up
 command! -nargs=1 Silent
 \ | execute ':silent !'.<q-args>
 \ | execute ':redraw!'
@@ -142,7 +139,7 @@ set ignorecase
 set smartcase
 
 " This is totally awesome - remap jj to escape in insert mode.  You'll never type jj anyway, so it's great!
-inoremap jj <Esc>
+"inoremap jj <Esc>
 
 "nnoremap JJJJ <Nop>
 
@@ -303,6 +300,7 @@ nnoremap <silent> zk O<Esc>
 
 " Space will toggle folds!
 nnoremap <space> za
+nnoremap <S-space> zA
 
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
@@ -332,7 +330,7 @@ nnoremap <leader>par :%s/^>$//<CR>
 let Tlist_Use_Right_Window = 1
 let Tlist_Enable_Fold_Column = 0
 let Tlist_Exit_OnlyWindow = 1
-let Tlist_Use_SingleClick = 1
+"let Tlist_Use_SingleClick = 1
 let Tlist_Inc_Winwidth = 0
 "}}}
 
@@ -348,7 +346,6 @@ syntax on
 
 ""{{{ iyixiang custom
 "{{{ python
-map <F7> :call RunPython()<CR>
 au  BufNewFile *.py call PythonHead()
 au  BufWritePre,FileWritePre *py  ks|call LastMod()|'s
 
@@ -408,14 +405,7 @@ endfun
 
 "}}}
 
-"vimrc ref : http://blog.csdn.net/wcc526/article/details/12111407
-syntax enable
-set background=dark
-set guifont=Consolas:h11
-set textwidth=80
-set lines=40
-set shiftwidth=4
-set tabstop=4
+"{{{
 "" completeopt
 "set completeopt=longest,menuone
 ""set completeopt=longest,preview
@@ -426,25 +416,27 @@ set tabstop=4
 "inoremap <expr> <S-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
 "            \ '<C-x><C-u><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
 "
-map <C-r> ,c<space>
-vnoremap <silent> <C-F1> :<C-U>let old_reg=@"<CR>gvy:silent!!cmd /cstart <C-R><C-R>"<CR><CR>:let @"=old_reg<CR>
+"vnoremap <silent> <C-F1> :<C-U>let old_reg=@"<CR>gvy:silent!!cmd /cstart <C-R><C-R>"<CR><CR>:let @"=old_reg<CR>
 "colorscheme molokai
 "let g:molokai_original = 1
 "let g:rehash256 = 1
+"}}}
 
-" to fix auto completion too slow
+"{{{ to fix auto completion too slow
 " http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text
 " Don't screw up folds when inserting text that might affect them, until
 " leaving insert mode. Foldmethod is local to the window. Protect against
 " screwing up folding when switching between windows.
 autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
 autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
+"}}}
 
-"highlight when character exceed 80 at one line
+"{{{highlight when character exceed 80 at one line
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
+"}}}
 
-"Toggle Menu and Toolbar
+"{{{Toggle Menu and Toolbar
 "set guioptions-=m
 "set guioptions-=T
 "map <silent> <F2> :if &guioptions =~# 'T' <Bar>
@@ -454,8 +446,42 @@ match OverLength /\%81v.\+/
 "        \set guioptions+=T <Bar>
 "        \set guioptions+=m <Bar>
 "    \endif<CR>
+"}}}
+
+"{{{Insert time
 func InsertTime(L)
 exe a:L.','.a:L.'s/$/'.strftime("%Y-%m-%d %H:%M:%S")
 endfunc
+"}}}
 
+"{{{Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+"}}}
+
+"{{{vimrc ref : http://blog.csdn.net/wcc526/article/details/12111407
+syntax enable
+colorscheme desert
+set background=light
+set background=dark
+set guifont=Consolas:h11
+set textwidth=80
+set lines=40
+set shiftwidth=4
+set tabstop=4
+map <F4> :NERDTreeToggle<cr>
+vmap <C-c> "+y
+map <C-p> "+p
+"map <C-q> :q<cr>
+map <C-s> :w<cr>
+map <C-x> ,c<space>
+map <F7> :call RunPython()<CR>
 "}}}
