@@ -476,7 +476,7 @@ set modifiable
 map <F4> :NERDTreeToggle<cr>
 vmap <C-c> "+y<cr>,c<space>
 map <C-p> "+p
-map <C-q> :wq<cr>:syntax on<cr>
+map <C-q> :q<cr>:syntax on<cr>
 map <C-s> :w<cr>
 map <C-x> ,c<space>
 map <F7> :call RunPython()<CR>
