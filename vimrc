@@ -31,8 +31,8 @@ let Tlist_Show_One_File = 1
 let g:miniBufExplMapWindowNavVim = 1
 "let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
-let g:miniBufExplorerMoreThanOne = 0
+"let g:miniBufExplModSelTarget = 1
+"let g:miniBufExplorerMoreThanOne = 0
 "inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i
 "nnoremap <C-P> :call PhpDocSingle()<CR>
 "vnoremap <C-P> :call PhpDocRange()<CR>
@@ -400,6 +400,15 @@ endfun
 
 "}}}
 
+"{{{ matlab
+
+func RunMatlab()
+exec "w"
+exec "!matlab -nosplash -nodesktop -r %"
+endfunc
+"}}}
+
+
 "{{{
 "" completeopt
 "set completeopt=longest,menuone
@@ -423,7 +432,8 @@ endfun
 " leaving insert mode. Foldmethod is local to the window. Protect against
 " screwing up folding when switching between windows.
 autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
-autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
+"autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
+autocmd BufWritePre, WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
 "}}}
 
 "{{{highlight when character exceed 80 at one line
@@ -473,8 +483,9 @@ set shiftwidth=4
 set tabstop=4
 set laststatus=0
 set modifiable
+set foldlevel=20
 map <F4> :NERDTreeToggle<cr>
-vmap <C-c> "+y<cr>,c<space>
+vmap <C-c> "+y<cr>
 map <C-p> "+p
 map <C-q> :q<cr>:syntax on<cr>
 map <C-s> :w<cr>
